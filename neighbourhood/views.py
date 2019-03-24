@@ -4,4 +4,5 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 @login_required(login_url='/accounts/login/')
 def index(request):
-    return render(request,'photos/index.html')
+    images = Neighbourhood.display_neighbourhood()
+    return render(request,'photos/index.html' , {"images":images})

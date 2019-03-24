@@ -31,8 +31,8 @@ class Business(models.Model):
     nei = models.ForeignKey(Neighbourhood)
     bemail= models.TextField()
 
-     def save_business(self):
-            self.save()
+    def save_business(self):
+        self.save()
 
     @classmethod
     def display_business(cls):
