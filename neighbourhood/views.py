@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import Neighbourhood,Business,User
+from .models import Neighbourhood,Business,User,Profile
 # Create your views here.
 @login_required(login_url='/accounts/login/')
 def index(request):
