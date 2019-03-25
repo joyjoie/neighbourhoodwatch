@@ -17,7 +17,7 @@ You need the following to work on the project: -
 ## Setup/Installation Requirements
 * To start using this project use the following commands:
 ```bash
-$ git clone https://github.com/joyjoie/api
+$ git clone https://github.com/joyjoie/neighbourhoodwatch
 ```
 ```bash
 $ cd ip
@@ -50,7 +50,7 @@ DISABLE_COLLECTSTATIC=1
 * create a database called photo
 ```bash
 (virtual)$ psql
-joy=# CREATE DATABASE api;
+joy=# CREATE DATABASE watch;
 ```
 * make migrations
 ```bash
@@ -64,7 +64,7 @@ joy=# CREATE DATABASE api;
 * access the application on this localhost address http://127.0.0.1:8000
 ## Behaviour Driven Development
 |  Behaviour |  Input  |  Output |
-
+|------------|---------|---------|
 | Login | Username and password | - |
 |Add Post| Upload Post |Posts|
 |View Profile|Change Profile Image,Location and Neighburhood| Changed profile details|Business Profile|Add business email and name|Business Name and Neighbourhood|
