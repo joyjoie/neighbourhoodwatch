@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http  import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Neighbourhood,Business,User,Profile
+from . forms import ProfileUpdateForm
+from .models import Neighbourhood,Business,Profile
 # Create your views here.
 @login_required(login_url='/accounts/login/')
 def index(request):
@@ -52,7 +53,7 @@ def profile(request,id):
     profile=Profile.objects.get(id=id)
     current_profile=Profile.objects.get(user=request.user)
 
-    return render(request, 'profile/profile.html', {"fo":fo,"p_form":p_form,"profile":profile, "current_profile":current_profile})
+    return render(request, "profile/profile.html", {"fo":fo,"p_form":p_form,"profile":profile, "current_profile":current_profile})
 
 
 def image(request, id,slug):
@@ -66,5 +67,17 @@ def image(request, id,slug):
     
 
     return render(request,"photos/image.html", {"foto":foto,  "image":image})
+
+
+def search(request):
+    if 'search' in request.GET and request.GET['search']:
+        search_term = request.GET.get('search')
+        profiles = Profile.search_profile(search_term)
+        message = f'{search_term}'
+
+        return render(request, 'photos/search.html',{'message':message, 'profiles':profiles})
+    else:
+        message = 'Enter term to search'
+        return render(request, 'photos/search.html', {'message':message})
 
 

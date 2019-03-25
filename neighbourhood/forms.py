@@ -9,9 +9,5 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = ['image','bio']
 
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model =Comments
-        exclude=['img','user']
 
 
