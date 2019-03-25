@@ -1,6 +1,33 @@
 {%extends 'photos/base.html'%}
-
+{% load bootstrap3%}
 {% block content %}
 {{block.super}}
-<h3>Hello</h3>
+
+<div class="container" >
+       
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <div class="row">
+        <!-- Single Image -->
+        {%for image in images%}
+
+        <!--Display images  -->
+        <div class="col-md-4"></div>
+            <div class="col-sm-7 col-md-7">
+                <br>
+                <br>
+                <br>
+                <img src="{{image.image.url}}" class="img-responsive" alt="Image"
+                    style="padding-top :10px; width: 350px;height:300px; margin: 5px 5px 15px 0px;">
+               
+                <a href="{% url 'project' image.id%}">{{image.name}}</a>
+            </div>
+            
+        
+        {% endfor %}
+        <div class="col-md-3"></div>
+    </div>
+
+</div>
+
+
 {% endblock %}

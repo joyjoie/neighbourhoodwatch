@@ -4,37 +4,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
-  font-family: 'Lora', serif ;
+  font-family: "Lato", sans-serif;
+  transition: background-color .5s;
+  
 }
 
 .sidenav {
   height: 100%;
-  width: 230px;
+  width: 0;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
   background-color: #111;
   overflow-x: hidden;
-  padding-top: 20px;
+  transition: 0.5s;
+  padding-top: 60px;
 }
 
 .sidenav a {
-  padding: 6px 8px 6px 16px;
+  padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
   color: #818181;
   display: block;
+  transition: 0.3s;
 }
 
 .sidenav a:hover {
   color: #f1f1f1;
 }
 
-.main {
-  margin-left: 160px; /* Same as the width of the sidenav */
-  font-size: 28px; /* Increased text to enable scrolling */
-  padding: 0px 10px;
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
 }
 
 @media screen and (max-height: 450px) {
@@ -45,32 +56,31 @@ body {
 </head>
 <body>
 
-<div class="sidenav">
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <a href="{% url 'index' %}">Home</a>
-  <a href="#">Profile</a>
-  <a href="#">Search</a>
+  <a href="{% url 'profile' request.user.profile.id %}">Profile</a>
   
-
-
-    {% if user.is_authenticated %}
- 
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account
-                  <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu" role="menu">
-          <li>
-            <a href="{%url 'index'%}">Home</a>
-          </li>
-          <li>
-            <a href="/accounts/password/change">Change Password</a>
-          </li>
-          <li>
-            <a href="/logout">Logout</a>
-          </li>
-        </ul>
-      </li>
-    
+  <div class="dropdown-content">
+      
+      {% if user.is_authenticated %}
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
+        aria-expanded="false">Account
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="{%url 'index'%}">Home</a>
+        </li>
+        <li>
+          <a href="/accounts/password/change">Change Password</a>
+        </li>
+        <li>
+          <a href="/logout">Logout</a>
+        </li>
+      </ul>
+    </li>
     {% else %}
     <li>
       <a class='btn btn-default' href="/accounts/login">Login</a>
@@ -78,11 +88,28 @@ body {
     
     {% endif %}
   
+  </div>
 </div>
 
-<div class="main">
-
+<div id="main">
+  <h2>Welcome to Neighbourhood watch</h2>
+  
+  <span style="font-size:25px;cursor:pointer" onclick="openNav()">&#9776;Menu</span>
 </div>
+
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+  document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+  document.body.style.backgroundColor = "white";
+}
+</script>
    
 </body>
 </html> 

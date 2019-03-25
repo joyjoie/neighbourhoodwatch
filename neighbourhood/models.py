@@ -20,13 +20,10 @@ class Neighbourhood(models.Model):
     def delete_neighbourhood(self):
         Neighbourhood.objects.all().delete()
     
-    def update(self): 
-       Neighbourhood.objects.filter(id = 2).update(name ='Kim')
+   
+    
 
-class User(models.Model):
-    name = models.CharField(max_length=60)
-    nhood= models.ForeignKey(Neighbourhood)
-    email= models.TextField()
+
 
 class Business(models.Model):
     name = models.CharField(max_length=60)
@@ -72,8 +69,8 @@ class Profile(models.Model):
         return profile
 
     @classmethod
-    def pro(cls):
-        return cls.objects.all()
+    def pro(self):
+        return self.objects.all()
 
  
 
@@ -86,3 +83,10 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
+
+
+
+class User(models.Model):
+    name = models.CharField(max_length=60)
+    nhood= models.ForeignKey(Neighbourhood)
+    email= models.TextField()
