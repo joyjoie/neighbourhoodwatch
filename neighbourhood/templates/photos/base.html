@@ -4,6 +4,7 @@
 <html>
 <head>
   <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
   {% if title %}
   <title>Neighbourhood Watch - {{title}}</title>
@@ -16,7 +17,10 @@
   {% endblock %}
 </head>
 <body>
-
+  <style type="text/css">
+    body {background-color:rgb(211, 208, 208);}
+   
+    </style>
     {% include "navbar.html" %}
 
     {% block content %} {%endblock%}

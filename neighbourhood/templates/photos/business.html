@@ -2,28 +2,29 @@
 {% load bootstrap3%}
 {% block content %}
 <div class =Container>
-    <br>
     <h3>Business Form</h3>
+    <br>
     <br>
 
     {%for biz in business %}
     <div class="col-md-4"></div>
-    <div class="col-sm-7 col-md-7">
+    <div class="w3-card-4" style="width:50%" >
         <br>
         <br>
         <p><strong>{{biz.user.username}}</strong> Business Name {{biz.name}}</p>
         <p><strong>{{biz.user.username}}</strong> Business Neighbourhood {{biz.nei.name}}</p>
-        
+
         
 
     </div>
+    <hr>
     {% endfor%}
     <form action="{% url 'business'%}" method="POST" enctype="multipart/form-data">
 
         {% csrf_token%}
         
         {% bootstrap_form b_form layout='inline' %}
-        <input type="submit" value="business" style="padding:10px">
+        <input type="submit" value=" Submit business " style="padding:10px">
 
 
     </form>

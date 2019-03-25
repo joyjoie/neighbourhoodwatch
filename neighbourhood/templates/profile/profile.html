@@ -14,15 +14,16 @@
             }
         </style>
         <div class="media">
-            <br>
-            <br>
+            
             <img src="{{ profile.image.url }}">
             <div class="media-body">
                 <h2 class="account-heading">{{ profile.user.username }}</h2>
                 <h4 class="account-heading">{{ profile.bio }}</h4>
                 <h4 class="account-heading">{{ profile.location }}</h4>
                 <h4 class="account-heading">{{ profile.neighbourhoodname }}</h4>
+                
             </div>
+            <hr>
             <form action="{%url 'myprofile'%}" method="post" enctype="multipart/form-data">
                 {% csrf_token%}
                 
