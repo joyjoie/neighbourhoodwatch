@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from .models import Profile,Business,User,Neighbourhood,Comments
 
 
-
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
