@@ -16,34 +16,27 @@
                 <br>
                 <br>
                 <br>
-                <img src="{{project.image.url}}" class="img-responsive" alt="Image"
+                <img src="{{nhood.image.url}}" class="img-responsive" alt="Image"
                     style="padding-top :10px; width: 350px;height:300px; margin: 5px 5px 15px 0px;">
                
-                <p>{{ project.name }}</p>
-                <p>{{ project.details }}</p>
-                <p>{{project.link }}</p>
-
-                {% for comment in comments%}
-                {%if comment.img == image%}
-                <p><strong>{{comment.user.username}}</strong> {{comment.comment}}</p>
-                {% endif%}
-                {%endfor%}
-
-                <form action="{% url 'project' project.id%}" method="POST" enctype="multipart/form-data">
+                <p>{{ nhood.name }}</p>
+                <p>{{ nhood.location }}</p>
+           
+                <form action="{% url 'neighbourhood' nhood.id%}" method="POST" enctype="multipart/form-data">
 
                     {% csrf_token%}
-                    <input type="hidden" name="project_id" value="{{project.id}}">
+                    <input type="hidden" name="neighbourhood_id" value="{{nhood.id}}">
                     {% bootstrap_form form layout='inline' %}
-                    <input type="submit" value="rating" style="padding:10px">
+                    <input type="submit" value="Comment" style="padding:10px">
             
 
 
                 </form>
-                
-                {% for rating in ratings%}
-                <p><strong>{{rating.user.username}}</strong> Design {{rating.design}}</p>
-                <p><strong>{{rating.user.username}}</strong> Usability {{rating.usability}}</p>
-                <p><strong>{{rating.user.username}}</strong> Content {{rating.content}}</p>
+                     
+                {% for comment in comments%}
+   
+                <p><strong>{{comment.user.username}}</strong> Comment {{comment.comment}}</p>
+               
                 {%endfor%}
 
             </div>

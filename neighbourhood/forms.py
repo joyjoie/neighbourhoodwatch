@@ -11,7 +11,7 @@ class ProfileUpdateForm(forms.ModelForm):
 
 
 
-class CommentForm(forms.ModelForm):
+class CommentsForm(forms.ModelForm):
     class Meta:
         model =Comments
         exclude=['img','user']

@@ -19,8 +19,9 @@
             <img src="{{ profile.image.url }}">
             <div class="media-body">
                 <h2 class="account-heading">{{ profile.user.username }}</h2>
-                <h6 class="account-heading">{{ profile.bio }}</h6>
-
+                <h4 class="account-heading">{{ profile.bio }}</h4>
+                <h4 class="account-heading">{{ profile.location }}</h4>
+                <h4 class="account-heading">{{ profile.neighbourhoodname }}</h4>
             </div>
             <form action="{%url 'myprofile'%}" method="post" enctype="multipart/form-data">
                 {% csrf_token%}
@@ -37,12 +38,14 @@
                 {{ p_form|crispy }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Update Profile Picture or Bio</button>
+                <button class="btn btn-outline-info" type="submit">Update Profile</button>
             </div>
         </form>
 
     </div>
-    
+    <div>
+        <a href="{% url 'upload'%}"> Upload Project</a>
+    </div>
 </div>
 
 {% endblock content %}
