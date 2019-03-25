@@ -1,13 +1,56 @@
 from django.shortcuts import render,redirect
 from django.http  import HttpResponse
 from django.contrib.auth.decorators import login_required
-from . forms import ProfileUpdateForm
-from .models import Neighbourhood,Business,Profile
-# Create your views here.
+from . forms import ProfileUpdateForm,CommentForm,NhoodForm
+from .models import Neighbourhood,Business,Profile,Comments
 @login_required(login_url='/accounts/login/')
 def index(request):
     images = Neighbourhood.display_neighbourhood()
-    return render(request,'photos/index.html' , {"images":images})
+    comments=Comments.display_comments()
+    
+    if request.method=='POST':
+        form=CommentForm(request.POST)
+        if form.is_valid():
+            image_id=int(request.POST.get('image_id'))
+            image=Project.objects.get(id=image_id)
+            comment=form.save(commit=False)
+            comment.img=image
+            comment.user=request.user
+            comment.save()
+            return redirect('index')
+    else:
+        form=CommentForm()
+
+
+   
+
+    context ={"images":images, "comments":comments , "form":form, }
+        
+    return render(request, 'photos/index.html',context )
+
+
+@login_required(login_url='/accounts/login/')
+def neighbourhood(request,id):
+    nhood=Neighbourhood.objects.get(id=id)
+
+    
+    if request.method=='POST':
+        form=NhoodForm(request.POST)
+        if form.is_valid():
+            neighbourood_id=int(request.POST.get('neighbourhood_id'))
+            neighbourhood=Neighbourhood.objects.get(id=project_id)
+            neighbourhood=form.save(commit=False)
+            neighbourhood.user=request.user
+            neighbourhood.save()
+            return redirect('project', project.id)
+    else:
+        form=NhoodForm()
+
+   
+
+
+    return render(request, 'photos/neighbourhood.html', { "project":project,"form":form,"neighbourhood":neighbourhood}) 
+
 
 
 @login_required(login_url='/accounts/login/')

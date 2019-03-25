@@ -48,7 +48,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     bio = models.CharField(max_length=60 ,blank=True)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
-    
+    location = models.TextField(blank=True)
+    neighbourhoodname = models.TextField(blank=True)
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -84,6 +85,16 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
+class Comments(models.Model):
+    img = models.ForeignKey(Neighbourhood)
+    user = models.ForeignKey(User)
+    comment = models.CharField(max_length=60)
 
+    @classmethod
+    def display_comments(cls):
+        return cls.objects.all()
+
+    def save_comments(self):
+        self.save()
 
 
