@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http  import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from . forms import ProfileUpdateForm,CommentsForm,NhoodForm
+from . forms import ProfileUpdateForm,CommentsForm,NhoodForm,BusinessForm
 from .models import Neighbourhood,Business,Profile,Comments
 
 
@@ -12,7 +12,7 @@ def index(request):
     comments=Comments.display_comments()
     
     if request.method=='POST':
-        form=CommentForm(request.POST)
+        form=CommentsForm(request.POST)
         if form.is_valid():
             image_id=int(request.POST.get('image_id'))
             image=Neighbourhood.objects.get(id=image_id)
@@ -22,10 +22,9 @@ def index(request):
             comment.save()
             return redirect('index')
     else:
-        form=CommentForm()
+        form=CommentsForm()
 
-
-   
+  
 
     context ={"images":images, "comments":comments , "form":form, }
         
@@ -120,7 +119,7 @@ def upload(request):
 @login_required(login_url='/accounts/login/')
 def neighbourhood(request,id):
     nhood=Neighbourhood.objects.get(id=id)
-
+    
     if request.method=='POST':
         form=CommentsForm(request.POST)
         if form.is_valid():
@@ -136,6 +135,26 @@ def neighbourhood(request,id):
 
     comments= Comments.objects.filter(img=nhood)
 
-
    
-    return render(request, 'photos/neighbourhood.html', { "nhood":nhood ,"form":form,"comments":comments}) 
+    return render(request, 'photos/neighbourhood.html', { "nhood":nhood ,"form":form,"comments":comments})
+    
+
+
+@login_required(login_url='/accounts/login/')
+def business(request):
+    business=Business.display_business()
+
+    if request.method=='POST':
+        b_form=BusinessForm(request.POST)
+        if b_form.is_valid():
+            
+            business=b_form.save(commit=False)
+            business.nei=request.user.profile.neighbourhoodname
+            business.user=request.user
+            business.save()
+            return redirect('business')
+    else:
+        b_form=BusinessForm()
+    context ={"business":business,"b_form":b_form, }
+        
+    return render(request, 'photos/business.html',context )

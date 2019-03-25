@@ -20,5 +20,12 @@ class CommentsForm(forms.ModelForm):
 class NhoodForm(forms.ModelForm):
     class Meta:
         model = Neighbourhood
-        exclude =['location']
+        fields =['name', 'location']
+
+class BusinessForm(forms.ModelForm):
+    class Meta:
+        model = Business
+        fields =['name','bemail']
+
+
 

@@ -21,6 +21,11 @@
                
                 <p>{{ nhood.name }}</p>
                 <p>{{ nhood.location }}</p>
+                {% for comment in comments%}
+   
+                <p><strong>{{comment.user.username}}</strong> Comment {{comment.comment}}</p>
+               
+                {%endfor%}
            
                 <form action="{% url 'neighbourhood' nhood.id%}" method="POST" enctype="multipart/form-data">
 
@@ -33,11 +38,7 @@
 
                 </form>
                      
-                {% for comment in comments%}
-   
-                <p><strong>{{comment.user.username}}</strong> Comment {{comment.comment}}</p>
-               
-                {%endfor%}
+                
 
             </div>
             

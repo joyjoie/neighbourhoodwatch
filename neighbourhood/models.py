@@ -5,10 +5,15 @@ from django.dispatch import receiver
 
 # Create your models here.
 class Neighbourhood(models.Model):
+    
     name = models.CharField(max_length=60)
     image = models.ImageField(upload_to="image/")
     location = models.TextField()
     # pub_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.name}' 
+
 
     def save_neighbourhood(self):
         self.save()
@@ -31,6 +36,9 @@ class Business(models.Model):
     nei = models.ForeignKey(Neighbourhood)
     bemail= models.TextField()
 
+    def __str__(self):
+        return f'{self.name}' 
+
     def save_business(self):
         self.save()
 
@@ -49,7 +57,7 @@ class Profile(models.Model):
     bio = models.CharField(max_length=60 ,blank=True)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     location = models.TextField(blank=True)
-    neighbourhoodname = models.TextField(blank=True)
+    neighbourhoodname = models.ForeignKey(Neighbourhood,null=True)
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -76,14 +84,14 @@ class Profile(models.Model):
  
 
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
 
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
 
 class Comments(models.Model):
     img = models.ForeignKey(Neighbourhood)

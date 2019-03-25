@@ -11,6 +11,7 @@ urlpatterns=[
     url(r'^profile/(\d+)', views.profile, name='profile'),
     url(r'^upload/$', views.upload, name='upload'),
     url(r'^search/', views.search, name='search'),
+    url(r'^business/',views.business,name ='business'),
 ]
 
 if settings.DEBUG:
